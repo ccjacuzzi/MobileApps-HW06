@@ -9,6 +9,4 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  - name: Update Gradle Wrapper Action
-    uses: gradle-update/update-gradle-wrapper-action@v1
 
