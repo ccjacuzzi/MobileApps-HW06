@@ -1,11 +1,22 @@
 package com.ualr.recyclerviewassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import com.ualr.recyclerviewassignment.Utils.DataGenerator;
+import com.ualr.recyclerviewassignment.model.Inbox;
+import com.ualr.recyclerviewassignment.adapter.AdapterListBasic;
+
+/*Import the Binding*/
+import com.ualr.recyclerviewassignment.databinding.ActivityListMultiSelectionBinding;
+
+import java.util.List;
+
 
 // TODO 05. Create a new Adapter class and the corresponding ViewHolder class in a different file. The adapter will be used to populate
 //  the recyclerView and manage the interaction with the items in the list
@@ -17,19 +28,31 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton mFAB;
+    private ActivityListMultiSelectionBinding mBinding;
+    private AdapterListBasic mAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_multi_selection);
+        mBinding = ActivityListMultiSelectionBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
         initComponent();
     }
 
     private void initComponent() {
         // TODO 01. Generate the item list to be displayed using the DataGenerator class
+        List<Inbox> inboxList = DataGenerator.getInboxData(this);
+
         // TODO 03. Do the setup of a new RecyclerView instance to display the item list properly
         // TODO 04. Define the layout of each item in the list
         // TODO 09. Create a new instance of the created Adapter class and bind it to the RecyclerView instance created in step 03
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        mBinding.recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new AdapterListBasic(this,inboxList);
+        mBinding.recyclerView.setAdapter(mAdapter);
+
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
             @Override
