@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="15dp">
+    android:layout_margin="15dp"
+    android:clickable="true">
 
     <FrameLayout
         android:layout_width="50dp"
@@ -18,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/shape_circle"
-
             app:tint="@color/grey_80" />
         <TextView
             android:id="@+id/inboxInitial"

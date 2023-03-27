@@ -2,10 +2,13 @@ package com.ualr.recyclerviewassignment;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
+import com.ualr.recyclerviewassignment.Utils.Tools;
 import com.ualr.recyclerviewassignment.model.Inbox;
 import com.ualr.recyclerviewassignment.adapter.AdapterListBasic;
 
@@ -60,10 +64,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, Inbox obj, int position) {
                 Toast.makeText(MainActivity.this, obj.getFrom(), Toast.LENGTH_SHORT).show();
+                mAdapter.toggleItemState(position);
+            }
+        });
+
+        mAdapter.setOnThumbnailClickListener(new AdapterListBasic.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Inbox obj, int position) {
+                mAdapter.deleteInboxItem(position);
             }
         });
 
         mBinding.recyclerView.setAdapter(mAdapter);
+
+
 
         mFAB = findViewById(R.id.fab);
         mFAB.setOnClickListener(new View.OnClickListener() {
@@ -71,8 +85,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO 10. Invoke the method created to a new item to the top of the list so it's
                 //  triggered when the user taps the Floating Action Button
+                Context context = view.getContext();
+                mAdapter.addInboxItem(0,DataGenerator.getRandomInboxItem(context));
+                mBinding.recyclerView.scrollToPosition(0);
             }
         });
     }
+
+
 
 }
