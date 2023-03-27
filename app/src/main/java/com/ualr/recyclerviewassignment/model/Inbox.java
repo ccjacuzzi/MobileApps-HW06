@@ -15,6 +15,10 @@ public class Inbox {
         return from;
     }
 
+    public char getFromInitial(){
+        return from.charAt(0);
+    }
+
     public void setFrom(String from) {
         this.from = from;
     }

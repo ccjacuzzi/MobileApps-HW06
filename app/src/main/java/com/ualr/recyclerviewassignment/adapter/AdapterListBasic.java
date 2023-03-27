@@ -42,6 +42,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position){
         InboxViewHolder viewHolder = (InboxViewHolder)holder;
         Inbox i = mInbox.get(position);
+        viewHolder.initial.setText(Character.toString(i.getFromInitial()));
         viewHolder.from.setText(i.getFrom());
         viewHolder.date.setText(i.getDate());
         viewHolder.email.setText(i.getEmail());
@@ -51,6 +52,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
     public int getItemCount(){return this.mInbox.size();}
 
     public class InboxViewHolder extends RecyclerView.ViewHolder{
+        public TextView initial;
         public TextView from;
         public TextView date;
         public TextView email;
@@ -59,6 +61,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
 
         public InboxViewHolder(View v){
             super(v);
+            initial = v.findViewById(R.id.inboxInitial);
             from = v.findViewById(R.id.inboxFrom);
             date = v.findViewById(R.id.inboxDate);
             email = v.findViewById(R.id.inboxEmail);
