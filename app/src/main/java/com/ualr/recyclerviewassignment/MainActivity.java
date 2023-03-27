@@ -1,11 +1,16 @@
 package com.ualr.recyclerviewassignment;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.ualr.recyclerviewassignment.Utils.DataGenerator;
@@ -51,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         mBinding.recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new AdapterListBasic(this,inboxList);
+        mAdapter.setOnItemClickListener(new AdapterListBasic.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, Inbox obj, int position) {
+                Toast.makeText(MainActivity.this, obj.getFrom(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         mBinding.recyclerView.setAdapter(mAdapter);
 
         mFAB = findViewById(R.id.fab);

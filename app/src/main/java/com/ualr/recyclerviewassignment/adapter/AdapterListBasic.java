@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,16 @@ public class AdapterListBasic extends RecyclerView.Adapter {
 
     private List<Inbox> mInbox;
     private Context mContext;
+
+    private OnItemClickListener mOnItemClickListner;
+
+    public interface OnItemClickListener{
+        void onItemClick(View view, Inbox obj, int position);
+    }
+
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener){
+        this.mOnItemClickListner = mItemClickListener;
+    }
 
     public AdapterListBasic(Context context, List<Inbox> inbox){
         this.mInbox = inbox;
@@ -59,6 +70,7 @@ public class AdapterListBasic extends RecyclerView.Adapter {
         public View lyt_parent;
 
 
+
         public InboxViewHolder(View v){
             super(v);
             initial = v.findViewById(R.id.inboxInitial);
@@ -66,6 +78,14 @@ public class AdapterListBasic extends RecyclerView.Adapter {
             date = v.findViewById(R.id.inboxDate);
             email = v.findViewById(R.id.inboxEmail);
             lyt_parent = v.findViewById(R.id.lyt_parent);
+
+            lyt_parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*This is the stuff that happens when the parent layout is clicked.*/
+                    mOnItemClickListner.onItemClick(view, mInbox.get(getLayoutPosition()),getLayoutPosition());
+                }
+            });
         }
     }
 }
